@@ -14,15 +14,15 @@ adminRouter.post("/signup", function(req,res){
 
 })
 
-adminRouter.post("/createcourse", function(req,res){
+adminRouter.post("/", function(req,res){
 
 })
 
-adminRouter.put("/course", function(req,res){
+adminRouter.put("/", function(req,res){
 
 })
 
-adminRouter.get("/addcourse", function(req,res){
+adminRouter.get("/", function(req,res){
 
 })
 
