@@ -29,11 +29,11 @@ const courseSchema = new Schema({
 const purchaseSchema = new Schema({
     userId:{
       type: ObjectId,
-      ref:"userSchema"
+      ref:"user"
     },
     courseId: {
         type:ObjectId,
-        ref: "courseSchema"  
+        ref: "course"  
     }
 })
 

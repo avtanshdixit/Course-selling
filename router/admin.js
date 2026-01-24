@@ -126,12 +126,59 @@ adminRouter.post("/course", adminMiddleware,async function(req,res){
     })
 })
 
-adminRouter.put("/course", function(req,res){
+adminRouter.put("/course",adminMiddleware, async function(req,res){
+    const adminId= req.userId;
 
+    const{title,description,imageUrl,price,courseId}=req.body;
+
+    //pehle course dhundha findone se , agar exist krta hai to updateone use kra phir-->ek tarika
+    // const course = await courseModel.findOne({
+    //     _id:courseId,
+    //     creatorId:adminId
+    // })
+    // if(!course)
+    // {
+    //     res.json({msg:this "course of this admin does not exist"})
+    // }
+
+    const course= await courseModel.updateOne({
+        //dusra tarika ki directy updateone me bhi filters de skte hai
+        //update one uses filters like conditions ki konsa data krna hai update
+        //to vo data krna hai jiski courseid ye ho aur creatorid ye ho
+          _id:courseId,
+          creatorId:adminId
+    },{
+         title:title,
+         description:description,
+         imageUrl:imageUrl,
+         price:price,
+         //creatorId:adminId  //ye to change nhi krenge
+    })
+
+    res.json({
+        msg:"course is updated",
+        courseId: course._id
+    })
 
 })
 
-adminRouter.get("/course/bulk", function(req,res){
+adminRouter.get("/course/bulk",adminMiddleware, async function(req,res){
+    const adminId= req.userId;
+
+   const courses= await courseModel.find({
+         creatorId:adminId
+    })
+
+    if(courses)
+    {
+        res.json({
+        courses
+    })
+    }
+    else{
+        res.json({msg:"no courses of this admin"})
+    }
+    
 
 })
 
